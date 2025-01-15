@@ -18,9 +18,9 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
 
   products-service:
-    build: ./products
+    build: ./products-service
     volumes:
-      - ./products/src:/usr/src/app/src
+      - ./products-service/src:/usr/src/app/src
     command: pnpm run start:dev
     environment:
       - PORT=3000
@@ -28,9 +28,9 @@ services:
       - DATABASE_URL=file:./dev.db
 
   orders-service:
-    build: ./orders
+    build: ./orders-service
     volumes:
-      - ./orders/src:/usr/src/app/src
+      - ./orders-service/src:/usr/src/app/src
     command: pnpm run start:dev
     environment:
       - PORT=3002
@@ -44,7 +44,7 @@ services:
     image: postgres:16.2
     restart: always
     volumes:
-      - ./orders/postgres:/var/lib/postgresql/data
+      - ./orders-service/postgres:/var/lib/postgresql/data
     ports:
       - 5433:5432
     environment:
