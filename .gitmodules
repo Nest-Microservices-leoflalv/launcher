@@ -7,3 +7,6 @@
 [submodule "orders-service"]
 	path = orders-service
 	url = git@github.com:Nest-Microservices-leoflalv/orders-service.git
+[submodule "payments-service"]
+	path = payments-service
+	url = git@github.com:Nest-Microservices-leoflalv/payment-service.git
