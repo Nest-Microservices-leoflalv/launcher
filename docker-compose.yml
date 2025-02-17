@@ -61,6 +61,7 @@ services:
     environment:
       - PORT=3007
       - NATS_SERVERS=${NATS_SERVERS}
+      - DB_URL=${AUTH_SERVICE_DB_URL}
 
   # =================
   # Payments Service
