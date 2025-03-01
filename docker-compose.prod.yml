@@ -21,36 +21,25 @@ services:
     build: 
       context: ./products-service
       dockerfile: dockerfile.prod
+      args:
+        - PRODUCTS_DB_URL=${PRODUCTS_DB_URL}
     image: products-service
     environment:
       - PORT=3000
       - NATS_SERVERS=${NATS_SERVERS}
-      - DATABASE_URL=file:./dev.db
+      - DATABASE_URL=${PRODUCTS_DB_URL}
 
-  # orders-service:
-  #   build: ./orders-service
-  #   volumes:
-  #     - ./orders-service/src:/usr/src/app/src
-  #   command: pnpm run start:dev
-  #   environment:
-  #     - PORT=3002
-  #     - DATABASE_URL=postgresql://postgres:123456@orders-db:5432/ordersdb?schema=public
-  #     - NATS_SERVERS=${NATS_SERVERS}
-  #   depends_on:
-  #     - orders-db
-  #
-  # orders-db:
-  #   container_name: orders_database
-  #   image: postgres:16.2
-  #   restart: always
-  #   volumes:
-  #     - ./orders-service/postgres:/var/lib/postgresql/data
-  #   ports:
-  #     - 5433:5432
-  #   environment:
-  #     POSTGRES_DB: ordersdb
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: 123456
+  orders-service:
+    build: 
+      context: ./orders-service
+      dockerfile: dockerfile.prod
+      args:
+        - ORDERS_DB_URL=${ORDERS_DB_URL}
+    image: orders-service
+    environment:
+      - PORT=3002
+      - DATABASE_URL=${ORDERS_DB_URL}
+      - NATS_SERVERS=${NATS_SERVERS}
 
   auth-service:
     build: 
