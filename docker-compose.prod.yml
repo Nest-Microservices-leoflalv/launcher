@@ -9,7 +9,7 @@ services:
     build:
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: client-gateway-prod
+    image: europe-southwest1-docker.pkg.dev/store-microservices-452520/image-registry/client-gateway
     ports:
       - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
     environment:
@@ -23,7 +23,7 @@ services:
       dockerfile: dockerfile.prod
       args:
         - PRODUCTS_DB_URL=${PRODUCTS_DB_URL}
-    image: products-service
+    image: europe-southwest1-docker.pkg.dev/store-microservices-452520/image-registry/products-service
     environment:
       - PORT=3000
       - NATS_SERVERS=${NATS_SERVERS}
@@ -35,7 +35,7 @@ services:
       dockerfile: dockerfile.prod
       args:
         - ORDERS_DB_URL=${ORDERS_DB_URL}
-    image: orders-service
+    image: europe-southwest1-docker.pkg.dev/store-microservices-452520/image-registry/orders-service
     environment:
       - PORT=3002
       - DATABASE_URL=${ORDERS_DB_URL}
@@ -45,7 +45,7 @@ services:
     build: 
       context: ./auth-service
       dockerfile: dockerfile.prod
-    image: auth-service
+    image: europe-southwest1-docker.pkg.dev/store-microservices-452520/image-registry/auth-service
     environment:
       - PORT=3007
       - NATS_SERVERS=${NATS_SERVERS}
@@ -62,6 +62,7 @@ services:
       dockerfile: dockerfile.prod
     ports:
       - ${PAYMENTS_SERVICE_PORT}:3003
+    image: europe-southwest1-docker.pkg.dev/store-microservices-452520/image-registry/payments-service
     environment:
       - PORT=${PAYMENTS_SERVICE_PORT}
       - NATS_SERVERS=${NATS_SERVERS}
